@@ -1,28 +1,57 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data;
 
 namespace ADO.NET
 {
     public class SqlUtility
     {
-        public void ExcuteSql(string sql)
+        private const string ConnectionString = "Server=Fahad\\SQLEXPRESS;Database=CSharp;User Id=csharpb22;password=123456;Trust Server Certificate=True;";
+
+        // ১. ExecuteNonQuery: Insert, Update, Delete এর জন্য
+        public void ExecuteSql(string sql, Dictionary<string, object> parameters = null)
         {
-            var connectionString = "Server=Fahad\\SQLEXPRESS;Database=CSharp;User Id = csharpb22 ; password = 123456 ; Trust Server Certificate = True;";
-
-            SqlConnection connection = new SqlConnection(connectionString);
-
-            if (connection.State == System.Data.ConnectionState.Closed)
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    // Dictionary থেকে প্যারামিটারগুলো লুপ চালিয়ে কমান্ডে যোগ করা
+                    if (parameters != null)
+                    {
+                        foreach (var item in parameters)
+                        {
+                            command.Parameters.AddWithValue(item.Key, item.Value);
+                        }
+                    }
+                    command.ExecuteNonQuery();
+                }
             }
+        }
 
-            SqlCommand command = new SqlCommand(sql, connection);
-            int rowAffected = command.ExecuteNonQuery();//non query (write, update ,delete)
+        // ২. ExecuteQuery: Select বা ডেটা পড়ার জন্য
+        public DataTable ExecuteQuery(string sql, Dictionary<string, object> parameters = null)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    if (parameters != null)
+                    {
+                        foreach (var item in parameters)
+                        {
+                            command.Parameters.AddWithValue(item.Key, item.Value);
+                        }
+                    }
 
-
-            connection.Close();
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+                }
+            }
+            return dt;
         }
     }
 }
