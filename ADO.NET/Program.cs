@@ -22,7 +22,7 @@ foreach (DataRow row in data.Rows)
     Console.WriteLine($"Name: {row["Name"]}, CGPA: {row["Cgpa"]} , InActive: {row["InActive"]}");
 }
 
-// --- ৩. UPDATE ---
+// ---UPDATE ---
 string updateSql = "UPDATE Student SET Cgpa = @Cgpa WHERE Name = @Name";
 var updateData = new Dictionary<string, object>
 {
