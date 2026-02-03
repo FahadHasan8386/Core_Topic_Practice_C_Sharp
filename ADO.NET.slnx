@@ -3,5 +3,6 @@
   <Project Path="EntityFramework_Migration_Example1/EntityFramework_Migration_Example1.csproj" Id="e2f37e6e-44ab-4606-8cf3-585033f6c8c0" />
   <Project Path="FileAndStream/FileAndStream.csproj" Id="d5064fe7-890d-4d78-ad78-70366fbe0ef9" />
   <Project Path="Linq/Linq.csproj" Id="c873c8b8-c482-418c-bbb7-730153fce984" />
+  <Project Path="SchoolManagementSystem/SchoolManagementSystem.csproj" Id="1d45c445-7f75-4dc9-92c9-38be1e59b7d5" />
   <Project Path="StudentManagementSystem/StudentManagementSystem.csproj" Id="75a34232-4be9-4f46-8bcb-1422f1c40444" />
 </Solution>
