@@ -4,7 +4,14 @@ using System.Text;
 
 namespace LibraryManagement.Members
 {
-    internal class Member
+    public class Member : Person
     {
+        private int _memberId;
+        public int MemberId { get; set; }
+        public int Age { get; private set; }
+        public override void DisplayInfo()
+        {
+            Console.WriteLine($"ID: {MemberId}, Name: {Name}, Age: {Age}");
+        }
     }
 }
